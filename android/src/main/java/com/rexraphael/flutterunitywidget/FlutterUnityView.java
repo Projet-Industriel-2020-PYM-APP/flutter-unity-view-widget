@@ -49,6 +49,7 @@ public class FlutterUnityView implements PlatformView, MethodChannel.MethodCallH
                 UnityUtils.createPlayer(registrar.activity(), new UnityUtils.CreateCallback() {
                     @Override
                     public void onReady() {
+                        UnityUtils.resume();
                         result.success(true);
                     }
                 });
@@ -75,6 +76,10 @@ public class FlutterUnityView implements PlatformView, MethodChannel.MethodCallH
                 UnityUtils.resume();
                 result.success(true);
                 break;
+            case "dispose":
+                UnityUtils.pause();
+                result.success(true);
+                break;
             default:
                 result.notImplemented();
         }
@@ -89,7 +94,7 @@ public class FlutterUnityView implements PlatformView, MethodChannel.MethodCallH
     @Override
     public void dispose() {
         if (UnityUtils.isUnityReady()) {
-            UnityUtils.getPlayer().quit();
+            // UnityUtils.getPlayer().quit();
         }
     }
 
